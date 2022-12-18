@@ -7,9 +7,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: 'PR commits + 1'
+        run: echo "PR_FETCH_DEPTH=$(( ${{ github.event.pull_request.commits }} + 1 ))" >> "${GITHUB_ENV}"
       - uses: actions/checkout@v3
         with: 
-          fetch-depth: "0"
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: ${{ env.PR_FETCH_DEPTH }}
       - uses: tj-actions/changed-files@v33
         id: changed-files
 
@@ -29,10 +32,11 @@ jobs:
           cd ./Code/Backend
           touch changed-file-list.txt
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            echo "$file was changed LALALALA"
+            echo "$file"
             echo "$file" >> changed-file-list.txt
           done
           touch Traceability_Report.txt
+          git log >> Traceability_Report.txt
           python test.py $sourcePath $targetList $outputFile $targetThreshold $targetSourceString $targetString $targetSourceValue
       - name: Upload changed files list
         uses: actions/upload-artifact@v3

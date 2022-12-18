@@ -11,7 +11,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.sha }}
-          fetch-depth: ${{ env.PR_FETCH_DEPTH }}
+          fetch-depth: 0
     # grab default branch to calculate branch point to know when to stop linting
       - run: |
           cd ./Code/Backend

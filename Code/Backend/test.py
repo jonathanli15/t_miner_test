@@ -38,7 +38,6 @@ def traceabilityResult(source, target, targetFile, feedback, model, metric = Non
     return values
     
 def outputValues(model, valuesDict, outputThreshold, curFile, output):
-    print("hello", valuesDict)
     for key in valuesDict:
         if (float(valuesDict[key]) >= outputThreshold):
             print("Source File: ",key, "Target File: ", curFile, "Traceability: ",valuesDict[key])
@@ -53,7 +52,6 @@ threshold = float(sys.argv[4])
 feedbackSourceList = sys.argv[5].split(",")
 feedbackTargetList = sys.argv[6].split(",")
 feedbackNumList = sys.argv[7].split(",")
-print(sourcePath, targetPath, targetList, threshold, feedbackSourceList, "LALALAL")
 input={} #dictionary to be filled
 for i in range (len(feedbackSourceList)):
     input[feedbackSourceList[i]+" "+feedbackTargetList[i]]=float(feedbackNumList[i]) #the dictionary with (targetFile sourceFile, feedbackValue)

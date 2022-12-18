@@ -1,6 +1,6 @@
 name: Action To Run test.py
 run-name: ${{ github.actor }} run of Test.py Action Demo
-on: [push]
+on: [pull_request]
 
 jobs:
   Example-Action:
@@ -8,14 +8,20 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-
+        with: 
+          fetch-depth: 0
       - uses: tj-actions/changed-files@v33
         id: changed-files
 
       - uses: actions/setup-python@v4
         with:
           python-version: "3.8"
-
+      - name: 'PR commits + 1'
+        run: echo "PR_FETCH_DEPTH=$(( ${{ github.event.pull_request.commits }} + 1 ))" >> "${GITHUB_ENV}"
+      - uses: actions/checkout@v3
+        with: 
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: ${{ env.PR_FETCH_DEPTH }}
       - name: Install dependencies
         run: python -m pip install -r requirements.txt
 
@@ -32,6 +38,7 @@ jobs:
             echo "$file" >> changed-file-list.txt
           done
           touch Traceability_Report.txt
+          git log >> Traceability_Report.txt
           python test.py $sourcePath $targetList $outputFile $targetThreshold $targetSourceString $targetString $targetSourceValue
       - name: Upload changed files list
         uses: actions/upload-artifact@v3

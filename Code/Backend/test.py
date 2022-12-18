@@ -38,6 +38,7 @@ def traceabilityResult(source, target, targetFile, feedback, model, metric = Non
     return values
     
 def outputValues(model, valuesDict, outputThreshold, curFile, output):
+    print("hello")
     for key in valuesDict:
         if (float(valuesDict[key]) >= outputThreshold):
             print("Source File: ",key, "Target File: ", curFile, "Traceability: ",valuesDict[key])

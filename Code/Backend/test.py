@@ -52,6 +52,7 @@ threshold = float(sys.argv[4])
 feedbackSourceList = sys.argv[5].split(",")
 feedbackTargetList = sys.argv[6].split(",")
 feedbackNumList = sys.argv[7].split(",")
+print(sourcePath, targetPath, targetList, threshold, feedbackSourceList, "LALALAL")
 input={} #dictionary to be filled
 for i in range (len(feedbackSourceList)):
     input[feedbackSourceList[i]+" "+feedbackTargetList[i]]=float(feedbackNumList[i]) #the dictionary with (targetFile sourceFile, feedbackValue)

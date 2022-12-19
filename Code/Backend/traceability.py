@@ -46,6 +46,7 @@ def outputValues(model, valuesDict, outputThreshold, curFile, output, repository
         if (float(sorted_valuesDict[key]) >= outputThreshold):
             print("Source File: ",key, "Target File: ", curFile, "Traceability: ",sorted_valuesDict[key])
             output.write("<li>Model:"+ model + "\nSource File: <a href='https://github.com/{}/blob/main{}/{}'>".format(repository, sys.argv[1], key) + key + "</a>, Target File: <a href='https://github.com/{}/blob/main/{}'>".format(repository, curFile) + curFile + "</a>, Traceability: " + str(sorted_valuesDict[key]) + '</li>\n')
+
         
 
 os.chdir('../../')
@@ -78,4 +79,5 @@ for targetFilename in targetList: # calculate the traceability values for each t
         outputValues((param1 +", "+param2), valuesWMD, threshold, targetFilename, writeFile, repositoryName)
         # outputValues("word2vec, metric = SCM", valuesSCM, threshold, targetFilename, writeFile)
         # outputValues("doc2vec", valuesDoc, threshold, targetFilename, writeFile)
+
         writeFile.close()

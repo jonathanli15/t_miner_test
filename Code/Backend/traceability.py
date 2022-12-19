@@ -81,3 +81,4 @@ for targetFilename in targetList: # calculate the traceability values for each t
         # outputValues("doc2vec", valuesDoc, threshold, targetFilename, writeFile)
 
         writeFile.close()
+
